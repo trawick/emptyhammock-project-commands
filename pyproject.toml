@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "emptyhammock-project-commands"
+description = "CLI for cloud and other resource management"
+readme = "README.md"
+license = "Apache-2.0"
+version = "0.0.1"
+requires-python = ">=3.10"
+authors = [
+  {name = "Jeff Trawick", email = "trawick@emptyhammock.com"}
+]
+keywords = []
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Operating System :: POSIX",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License"
+]
+dependencies = [
+]
+
+[project.urls]
+"Homepage" = "https://github.com/trawick/emptyhammock-proejct-commands"
