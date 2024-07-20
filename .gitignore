@@ -1,3 +1,4 @@
 .envrc
 .idea
 venv
+src/emptyhammock_project_commands.egg-info

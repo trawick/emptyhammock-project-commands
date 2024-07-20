@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "emptyhammock-project-commands"
 description = "CLI for cloud and other resource management"
 readme = "README.md"
-license = "Apache-2.0"
+license = { file = "LICENSE" }
 version = "0.0.1"
 requires-python = ">=3.10"
 authors = [
@@ -21,6 +21,9 @@ classifiers = [
 ]
 dependencies = [
 ]
+
+[project.scripts]
+ehproject = "ehproject:cli"
 
 [project.urls]
 "Homepage" = "https://github.com/trawick/emptyhammock-proejct-commands"
