@@ -15,6 +15,7 @@ cli.add_command(emham.playbook)
 cli.add_command(emham.database)
 cli.add_command(emham.media)
 cli.add_command(emham.manage)
+cli.add_command(emham.roles)
 
 
 if __name__ == "__main__":

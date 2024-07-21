@@ -42,6 +42,11 @@ def bootstrap(environment: str, username: str, ssh_private_key: str) -> None:
     else:
         pw = getpass.getpass(f"Password for {username}: ")
         extra_playbook_vars["ansible_ssh_pass"] = pw
+        extra_playbook_vars["ansible_ssh_common_args"] = (
+            "-o PasswordAuthentication=yes "
+            "-o PreferredAuthentications=keyboard-interactive,password "
+            "-o PubkeyAuthentication=no"
+        )
 
     run_playbook(
         environment,

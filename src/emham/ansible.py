@@ -78,7 +78,7 @@ def run_playbook(
     extra_var_args = []
     for k, v in extra_playbook_vars.items():
         extra_var_args.append("-e")
-        extra_var_args.append(f"{k}={v}")
+        extra_var_args.append(f"{k}='{v}'")
 
     subprocess.run(
         ["ansible-playbook"]

@@ -11,7 +11,7 @@ import yaml
 import click
 
 
-def _build(cache: bool, project_name: str):
+def _build(cache: bool, image_name: str):
     cache_args = [] if cache else ["--no-cache", "--pull"]
     subprocess.run(
         [
@@ -22,7 +22,7 @@ def _build(cache: bool, project_name: str):
         + cache_args
         + [
             "-t",
-            project_name,
+            image_name,
             ".",
         ],
         check=True,
@@ -47,7 +47,7 @@ def _flush_existing_login(registry: str) -> None:
         config.write_text(original)
 
 
-def _push(project_name: str, aws_account_id: str, aws_region: str):
+def _push(image_name: str, aws_account_id: str, aws_region: str):
     # get AWS ECR login token
     ecr_client = boto3.client(
         'ecr',
@@ -80,8 +80,8 @@ def _push(project_name: str, aws_account_id: str, aws_region: str):
     )
 
     # tag image for AWS ECR
-    repo_name = f"{aws_account_id}.dkr.ecr.{aws_region}.amazonaws.com/{project_name}"
-    docker_image = docker_client.images.get(name="liamtrawickmusic")
+    repo_name = f"{aws_account_id}.dkr.ecr.{aws_region}.amazonaws.com/{image_name}"
+    docker_image = docker_client.images.get(name=image_name)
     docker_image.tag(repo_name, tag='latest')
 
     # push image to AWS ECR
@@ -97,8 +97,8 @@ def image(mode: str, cache: bool) -> None:
         all_vars = yaml.safe_load(f.read())
     aws_account_id = all_vars["aws_account_id"]
     aws_region = all_vars["aws_region"]
-    project_name = all_vars["project_name"]
+    image_name = all_vars["image_name"]
     if mode == "build":
-        _build(cache, project_name)
+        _build(cache, image_name)
     elif mode == "push":
-        _push(project_name, aws_account_id, aws_region)
+        _push(image_name, aws_account_id, aws_region)
