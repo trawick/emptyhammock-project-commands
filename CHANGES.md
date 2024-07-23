@@ -1,5 +1,9 @@
 # Changes and migration requirements
 
+## Version 0.0.3
+
+* Resolve nested variable settings for `image` subcommands.
+
 ## Version 0.0.2
 
 * Add `roles install` command for installing Ansible roles without performing

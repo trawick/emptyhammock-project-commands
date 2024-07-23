@@ -6,9 +6,10 @@ from pathlib import Path
 
 import boto3
 import docker
-import yaml
 
 import click
+
+from emham.ansible import read_ansible_var
 
 
 def _build(cache: bool, image_name: str):
@@ -93,11 +94,9 @@ def _push(image_name: str, aws_account_id: str, aws_region: str):
 @click.argument("mode", type=click.Choice(["build", "push"]))
 @click.option("--cache/--no-cache", default=True)
 def image(mode: str, cache: bool) -> None:
-    with open("deploy/environments/all/vars.yml", encoding="utf-8") as f:
-        all_vars = yaml.safe_load(f.read())
-    aws_account_id = all_vars["aws_account_id"]
-    aws_region = all_vars["aws_region"]
-    image_name = all_vars["image_name"]
+    aws_account_id = read_ansible_var("production", "aws_account_id")
+    aws_region = read_ansible_var("production", "aws_region")
+    image_name = read_ansible_var("production", "image_name")
     if mode == "build":
         _build(cache, image_name)
     elif mode == "push":
