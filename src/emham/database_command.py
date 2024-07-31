@@ -3,6 +3,7 @@ from pathlib import Path
 
 import click
 
+from emham.ansible import read_ansible_var
 from emham.inventory import load_inventory
 from emham.playbook_command import run_playbook
 
@@ -49,9 +50,24 @@ def get_dump(environment: str) -> None:
     _delete_dump_on_server(host, port, dump_name)
 
 
+@click.command()
+def load_dump() -> None:
+    scripts = Path(__file__).parent.resolve() / "scripts"
+    refresh_db = scripts / "refresh_db.sh"
+    project_name = read_ansible_var("production", "project_name")
+    subprocess.run(
+        [
+            refresh_db,
+            project_name,
+        ],
+        check=True,
+    )
+
+
 @click.group()
 def database() -> None:
     pass
 
 
 database.add_command(get_dump)
+database.add_command(load_dump)

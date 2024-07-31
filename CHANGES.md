@@ -1,5 +1,11 @@
 # Changes and migration requirements
 
+## Version 0.0.4
+
+* Add documentation for all basic developer tasks.
+* Add `ehproject database load-dump` command, removing the need for projects
+  to provide a `refresh_db.sh` command.
+
 ## Version 0.0.3
 
 * Resolve nested variable settings for `image` subcommands.

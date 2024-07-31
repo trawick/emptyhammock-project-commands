@@ -68,7 +68,7 @@ As developer:
 
 ```bash
 $ ehproject database get-dump production
-$ ./refresh_db.sh
+$ ehproject database load-dump
 $ ./manage.py migrate
 ```
 
