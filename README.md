@@ -152,8 +152,12 @@ to include the server in regular maintenance tasks.
 ## Build
 
 ```bash
-$ ehproject image build [--no-cache]
+$ ehproject image build {--cache|--no-cache}
 ```
+
+Note: It is important to build with `--no-cache` at least weekly so that fixes
+in the base image are picked up.  This won't be needed for images that are built
+in an environment  that doesn't retain an image layer cache.
 
 ## Push to ECR
 

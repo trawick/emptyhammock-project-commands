@@ -91,13 +91,26 @@ def _push(image_name: str, aws_account_id: str, aws_region: str):
 
 
 @click.command()
-@click.argument("mode", type=click.Choice(["build", "push"]))
-@click.option("--cache/--no-cache", default=True)
-def image(mode: str, cache: bool) -> None:
-    aws_account_id = read_ansible_var("production", "aws_account_id")
-    aws_region = read_ansible_var("production", "aws_region")
-    image_name = read_ansible_var("production", "image_name")
-    if mode == "build":
-        _build(cache, image_name)
-    elif mode == "push":
-        _push(image_name, aws_account_id, aws_region)
+@click.option("--cache/--no-cache", required=True)
+@click.pass_context
+def build(ctx: click.Context, cache: bool) -> None:
+    _build(cache, ctx.obj["image_name"])
+
+
+@click.command()
+@click.pass_context
+def push(ctx: click.Context) -> None:
+    _push(ctx.obj["image_name"], ctx.obj["aws_account_id"], ctx.obj["aws_region"])
+
+
+@click.group()
+@click.pass_context
+def image(ctx: click.Context) -> None:
+    ctx.ensure_object(dict)
+    ctx.obj["aws_account_id"] = read_ansible_var("production", "aws_account_id")
+    ctx.obj["aws_region"] = read_ansible_var("production", "aws_region")
+    ctx.obj["image_name"] = read_ansible_var("production", "image_name")
+
+
+image.add_command(build)
+image.add_command(push)

@@ -1,5 +1,10 @@
 # Changes and migration requirements
 
+## Version 0.0.5 (unreleased)
+
+* `ehproject image build` requires either `--no-cache` or `--cache`, instead of
+  defaulting to `--cache`.
+
 ## Version 0.0.4
 
 * Add documentation for all basic developer tasks.
