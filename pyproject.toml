@@ -26,4 +26,4 @@ dependencies = [
 ehproject = "ehproject:cli"
 
 [project.urls]
-"Homepage" = "https://github.com/trawick/emptyhammock-proejct-commands"
+"Homepage" = "https://github.com/trawick/emptyhammock-project-commands"
