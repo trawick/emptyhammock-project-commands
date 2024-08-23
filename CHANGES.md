@@ -1,7 +1,8 @@
 # Changes and migration requirements
 
-## Version 0.0.5 (unreleased)
+## Version 0.0.5
 
+* Declare dependencies in pyproject.toml (click, PyYAML, boto3, docker, ansible).
 * `ehproject image build` requires either `--no-cache` or `--cache`, instead of
   defaulting to `--cache`.
 
