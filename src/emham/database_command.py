@@ -1,3 +1,4 @@
+import os
 import subprocess
 from pathlib import Path
 
@@ -50,17 +51,46 @@ def get_dump(environment: str) -> None:
     _delete_dump_on_server(host, port, dump_name)
 
 
+def _get_postgres_envvars(project_name: str) -> dict:
+    return {
+        "PGUSER": os.environ.get("DB_USER", project_name),
+        "PGPASSWORD": os.environ.get("DB_PASSWORD", project_name),
+        "PGHOST": os.environ.get("DB_HOST", "localhost"),
+        "PGPORT": os.environ.get("DB_PORT", "5432"),
+    }
+
+
 @click.command()
 def load_dump() -> None:
-    scripts = Path(__file__).parent.resolve() / "scripts"
-    refresh_db = scripts / "refresh_db.sh"
     project_name = read_ansible_var("production", "project_name")
+    database_name = project_name
+    env = _get_postgres_envvars(project_name)
     subprocess.run(
         [
-            refresh_db,
-            project_name,
+            "dropdb",
+            "--if-exists",
+            database_name,
         ],
         check=True,
+        env=env,
+    )
+    subprocess.run(
+        [
+            "createdb",
+            "-E",
+            "UTF-8",
+            database_name,
+        ],
+        check=True,
+        env=env,
+    )
+    subprocess.run(
+        [
+            f"zcat project.sql.gz | psql {database_name}"
+        ],
+        check=True,
+        env=env,
+        shell=True,
     )
 
 

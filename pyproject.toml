@@ -7,7 +7,7 @@ name = "emptyhammock-project-commands"
 description = "CLI for cloud and other resource management"
 readme = "README.md"
 license = { file = "LICENSE" }
-version = "0.0.5"
+version = "0.0.6"
 requires-python = ">=3.10"
 authors = [
   {name = "Jeff Trawick", email = "trawick@emptyhammock.com"}

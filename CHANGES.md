@@ -1,5 +1,10 @@
 # Changes and migration requirements
 
+## Version 0.0.6
+
+* Fix failure of `database load-dump` to find a shell script; the script has
+  been reimplemented in Python.
+
 ## Version 0.0.5
 
 * Declare dependencies in pyproject.toml (click, PyYAML, boto3, docker, ansible).

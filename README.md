@@ -72,6 +72,16 @@ $ ehproject database load-dump
 $ ./manage.py migrate
 ```
 
+Note: `load-dump` assumes the following values for local database access, which
+can be overridden with the specified environment variable:
+
+| Setting           | Default value | Environment variable override |
+|-------------------|---------------|-------------------------------|
+| Database user     | project name  | `DB_USER`                     |
+| Database password | project name  | `DB_PASSWORD`                 |
+| Database host     | `localhost`   | `DB_HOST`                     |
+| Database port     | `5432         | `DB_PORT`                     |
+
 #### Sync with the server media tree
 
 ```bash
