@@ -93,17 +93,7 @@ $ ehproject media get-media production
 ### General preparation
 
 Deployment is based on Ansible, which will be installed in the development
-virtualenv or in a separate virtualenv as shown below:
-
-```
-$ python -m venv ./venv-deploy
-$ . venv-deploy/bin/activate
-$ pip install -r deploy/requirements.txt
-    ...
-```
-
-Activate the virtualenv for deployment before running any of the shell commands
-described in this section.
+virtualenv.
 
 Configure your user and ssh public key in `deploy/devs.yml`.  After the next
 deploy to a server, you'll be able to log in via `ssh`.  Ensure that the
